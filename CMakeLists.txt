@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Add the executable
-add_executable(Youdith src/main.cpp src/Tokenizer.cpp)
+add_executable(Youdith src/main.cpp src/Tokenizer.cpp src/FileParser.cpp)
 
 # Include directories
 include_directories(${PROJECT_SOURCE_DIR}/include)
