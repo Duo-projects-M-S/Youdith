@@ -16,7 +16,7 @@
 Function prog -> iterativ optimization
 -> var standard const and via reference -> '?' signals not const
 
-return: num --> ;
+return: num -> ;
 
 Pointer ?
 
