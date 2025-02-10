@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
       // Test print
       std::cout << "List elements: ";
       for (Token t : tokens) {
-        std::cout << (unsigned int)t << " ";  // Directly print the element
+        std::cout << static_cast<unsigned int>(t) << " ";  // Directly print the element
       }
       std::cout << std::endl;
 

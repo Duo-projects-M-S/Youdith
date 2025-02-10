@@ -1,5 +1,13 @@
 #include "Tokenizer.h"
 
+Tokenizer::MultiCharTokenMap Tokenizer::create_map() {
+  std::unordered_map<std::string, Token> map;
+  for (const auto& [key, value] : data) {
+      map[key] = value;
+  }
+  return map;
+}
+
 Token Tokenizer::identifySingleCharToken(const char character) {
   switch (character) {
     case ' ':
@@ -21,9 +29,9 @@ Token Tokenizer::identifySingleCharToken(const char character) {
 }
 
 Token Tokenizer::identifyMultieCharToken(const std::string& stringtoken) {
-  auto it = multiLetterTokens.find(stringtoken);
+  auto& it = m_multiLetterTokens.find(stringtoken);
 
-  if (it != multiLetterTokens.end()) {
+  if (it != m_multiLetterTokens.end()) {
     return it->second;
   }
 
@@ -31,19 +39,19 @@ Token Tokenizer::identifyMultieCharToken(const std::string& stringtoken) {
 }
 
 Token Tokenizer::getNextToken() {
-  size_t last_index = index;
+  size_t last_index = m_index;
 
-  while (index < stringtoken.length() &&
-         identifySingleCharToken(stringtoken[index]) == Token::Error) {
-    index++;
+  while (m_index < m_stringtoken.length() &&
+         identifySingleCharToken(m_stringtoken[m_index]) == Token::Error) {
+    m_index++;
   }
 
-  if (index - last_index == 0) {
-    index++;
-    return identifySingleCharToken(stringtoken[index - 1]);
+  if (m_index - last_index == 0) {
+    m_index++;
+    return identifySingleCharToken(m_stringtoken[m_index - 1]);
   } else {
     return identifyMultieCharToken(
-        stringtoken.substr(last_index, index - last_index));
+        m_stringtoken.substr(last_index, m_index - last_index));
   }
 
   return Token::Error;

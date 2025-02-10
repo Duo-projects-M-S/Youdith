@@ -18,27 +18,29 @@ enum class Token : unsigned int {
   var_char,
   var_bool,
   var_void
-
 };
 
+static constexpr std::pair<const char*, Token> data[] = {
+  {"num", Token::var_num},
+  {"char", Token::var_char},
+  {"Youdith", Token::Main},
+  {"->", Token::Return}
+};
 // Make two funcion static?
 class Tokenizer {
- public:
-  Tokenizer(const std::string& stringtoken) : stringtoken(stringtoken) {
-    index = 0;
-  }
-
-  Token getNextToken();
-
  private:
-  size_t index;
-  const std::string& stringtoken;
-  std::unordered_map<std::string, Token> multiLetterTokens = {
-      {"num", Token::var_num},
-      {"char", Token::var_char},
-      {"Youdith", Token::Main},
-      {"->", Token::Return}};
+  typedef std::unordered_map<std::string, Token> MultiCharTokenMap;
+  size_t m_index;
+  const std::string& m_stringtoken;
+  static const MultiCharTokenMap m_multiLetterTokens;
 
-  Token identifySingleCharToken(const char);
-  Token identifyMultieCharToken(const std::string&);
+  [[nodiscard]] Token identifySingleCharToken(const char);
+  [[nodiscard]] Token identifyMultieCharToken(const std::string&);
+
+ public:
+  Tokenizer(const std::string& stringtoken) : m_stringtoken(stringtoken), m_index(0){}
+  [[nodiscard]] static MultiCharTokenMap create_map();
+  [[nodiscard]] Token getNextToken();
 };
+
+const Tokenizer::MultiCharTokenMap Tokenizer::m_multiLetterTokens = Tokenizer::create_map();
