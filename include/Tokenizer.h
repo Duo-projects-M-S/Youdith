@@ -42,5 +42,3 @@ class Tokenizer {
   [[nodiscard]] static MultiCharTokenMap create_map();
   [[nodiscard]] Token getNextToken();
 };
-
-const Tokenizer::MultiCharTokenMap Tokenizer::m_multiLetterTokens = Tokenizer::create_map();

@@ -1,5 +1,7 @@
 #include "Tokenizer.h"
 
+const Tokenizer::MultiCharTokenMap Tokenizer::m_multiLetterTokens = Tokenizer::create_map();
+
 Tokenizer::MultiCharTokenMap Tokenizer::create_map() {
   std::unordered_map<std::string, Token> map;
   for (const auto& [key, value] : data) {
