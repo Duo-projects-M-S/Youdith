@@ -46,7 +46,7 @@ TokenType Tokenizer::identifyMultieCharTokenType(
   if (isNumber(stringtoken))
     return TokenType::Value;
 
-  auto& it = m_multiLetterTokens.find(stringtoken);
+  auto it = m_multiLetterTokens.find(stringtoken);
   if (it != m_multiLetterTokens.end()) {
     return it->second;
   }
