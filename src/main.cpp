@@ -16,24 +16,26 @@ int main(int argc, char* argv[]) {
 
       // Test
       Tokenizer tok(file);
-      Token a = Token::Error;
+      Token a = { TokenType::Error };
       std::list<Token> tokens;
       do {
         a = tok.getNextToken();
         tokens.push_back(a);
-      } while (a != Token::Error);
+      } while (a.type != TokenType::End_of_File);
 
       // Test print
       std::cout << "List elements: ";
       for (Token t : tokens) {
-        std::cout << static_cast<unsigned int>(t) << " ";  // Directly print the element
+        std::cout << static_cast<unsigned int>(t.type) << " ";  // Directly print the element
       }
       std::cout << std::endl;
 
-    } else {
+    }
+    else {
       std::cerr << "Error: File does not exist!" << std::endl;
     }
-  } else {
+  }
+  else {
     std::cerr << "Error: Please specify a file to compile!" << std::endl;
   }
 }
