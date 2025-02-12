@@ -1,13 +1,17 @@
 #pragma once
+#include <algorithm>
+#include <charconv>
 #include <iostream>
 #include <optional>
 #include <unordered_map>
-#include <algorithm>
+
+// Todo:: Error  -> "a"; a is recognised as symbol
 
 enum class TokenType : unsigned int {
   Error,
   Space,
   Semicolon,
+  Quotation,
   Round_Bracket_Left,
   Round_Bracket_Right,
   Square_Bracket_Left,
@@ -44,10 +48,10 @@ static constexpr std::pair<const char*, TokenType> data[] = {
     {"num", TokenType::Var_num},
     {"char", TokenType::Var_char},
     {"Youdith", TokenType::Main},
-    {"->", TokenType::Return} };
+    {"->", TokenType::Return}};
 
 class Tokenizer {
-private:
+ private:
   typedef std::unordered_map<std::string, TokenType> MultiCharTokenMap;
 
   TokenType m_prevTokenType;
@@ -58,10 +62,11 @@ private:
   [[nodiscard]] TokenType identifySingleCharTokenType(const char);
   [[nodiscard]] TokenType identifyMultieCharTokenType(const std::string&);
 
-public:
+ public:
   Tokenizer(const std::string& stringtoken)
-    : m_stringtoken(stringtoken), m_index(0), m_prevTokenType(TokenType::Error) {
-  }
+      : m_stringtoken(stringtoken),
+        m_index(0),
+        m_prevTokenType(TokenType::Error) {}
   [[nodiscard]] static MultiCharTokenMap create_map();
   [[nodiscard]] Token getNextToken();
 };

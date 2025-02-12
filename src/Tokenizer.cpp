@@ -15,8 +15,9 @@ static bool isNumber(const std::string& str) {
   if (str.empty())
     return false;
 
-  return std::all_of(str.begin() + 1, str.end(), ::isdigit) &&
-         (std::isdigit(str[0]) || str[0] == '-');
+  double value;
+  auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), value);
+  return ec == std::errc{} && ptr == str.data() + str.size();
 }
 
 TokenType Tokenizer::identifySingleCharTokenType(const char character) {
@@ -35,6 +36,8 @@ TokenType Tokenizer::identifySingleCharTokenType(const char character) {
       return TokenType::Semicolon;
     case '=':
       return TokenType::Equal;
+    case '"':
+      return TokenType::Quotation;
 
     default:
       return TokenType::Error;

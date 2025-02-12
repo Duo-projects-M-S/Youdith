@@ -3,3 +3,8 @@ num Youdith(){
  ->;
  i=4;
 }
+
+char test(){
+  -> "a";
+  23.34
+}
